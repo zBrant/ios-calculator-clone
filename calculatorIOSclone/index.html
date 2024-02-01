@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main>
+      <div class="panel">
+        <output id="painel"></output>
+      </div>
+      
+      <div class="main-buttons">
+        <button onclick="clearDisplay()" type="submit" class="top-buttons">AC</button>
+        <button onclick="invert()" type="submit" class="top-buttons">±</button>
+        <button onclick="toPercentage()" type="submit" class="top-buttons">%</button>
+        <button onclick="expressionType('/')" type="submit" class="aside-buttons">÷</button>
+        <button onclick="addToPanel(7)" type="submit">7</button>
+        <button onclick="addToPanel(8)" type="submit">8</button>
+        <button onclick="addToPanel(9)" type="submit">9</button>
+        <button onclick="expressionType('*')" type="submit" class="aside-buttons">x</button>
+        <button onclick="addToPanel(4)" type="submit">4</button>
+        <button onclick="addToPanel(5)" type="submit">5</button>
+        <button onclick="addToPanel(6)" type="submit">6</button>
+        <button onclick="expressionType('-')" type="submit" class="aside-buttons">-</button>
+        <button onclick="addToPanel(1)" type="submit">1</button>
+        <button onclick="addToPanel(2)" type="submit">2</button>
+        <button onclick="addToPanel(3)" type="submit">3</button>
+        <button onclick="expressionType('+')" type="submit" class="aside-buttons">+</button>
+      </div>
+
+      <div class="bottom-buttons">
+        <button onclick="addToPanel(0)" type="submit" id="zero">0</button>
+        <button onclick="addDot()"type="submit">.</button>
+        <button onclick="doExpression()" type="submit" class="aside-buttons">=</button>
+      </div>
+    </main>
+   
+    <script>
+        let display = document.getElementById("painel")
+        let num1 = "", num2 = ""
+        let operator = ""
+        let dotPlaced = false
+        let signActive = false
+
+        function clearDisplay(){
+          display.innerHTML = ""
+          num1 = ""
+          num2 = ""
+          operator = ""
+          dotPlaced = false
+          signActive = false
+        }
+
+
+        function addToPanel(n){
+          if(display.innerHTML.length > 9) return 
+          if(signActive){
+            num2 += n
+            display.innerHTML = addToDisplay(num2)
+          }else{
+            num1 += n
+            display.innerHTML = addToDisplay(num1)
+          }
+        }
+
+        function addDot(){
+          if(signActive) {
+            dotPlaced = true
+            if(num2.includes(".")) return
+          }else{
+            dotPlaced = true
+            if(num1.includes(".")) return
+          }
+          addToPanel('.')
+        }
+
+        function invert(){
+          if(signActive){
+            num2 *= -1
+            display.innerHTML = num2
+          }else{
+            num1 *= -1
+            display.innerHTML = num1
+          }
+        }
+
+        function expressionType(t){
+          if(signActive) return
+          operator = t
+          signActive = true
+          dotPlaced = false
+        } 
+
+        function doExpression(){
+          display.innerHTML = eval(num1+operator+num2).toLocaleString(undefined)
+        }
+
+        function toPercentage(){
+          if(signActive){
+            if(num2 === "") return
+            num2 = (num1/100) * num2
+            // console.log(`num2 --> ${num1} - ${num2}`)
+            display.innerHTML += "%"
+          }else{
+            num1 /= 100
+            // console.log(`num1 --> ${num1} - ${num2}`)
+            display.innerHTML += "%"
+          }
+        }
+
+        function addToDisplay(n){
+          // if(display.clientWidth > display.parentElement.clientWidth){
+          //   console.log("passei aquii")
+          //   display.style.fontSize = `${parseInt(window.getComputedStyle(display).fontSize) -10}px`   
+          // }
+          return parseFloat(n).toLocaleString(undefined)
+        }
+    </script>
+  </body>
+</html>
