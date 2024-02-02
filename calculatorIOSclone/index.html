@@ -7,11 +7,8 @@
   </head>
   <body>
     <main>
-      <div class="panel">
+      <div class="container">
         <output id="painel"></output>
-      </div>
-      
-      <div class="main-buttons">
         <button onclick="clearDisplay()" type="submit" class="top-buttons">AC</button>
         <button onclick="invert()" type="submit" class="top-buttons">±</button>
         <button onclick="toPercentage()" type="submit" class="top-buttons">%</button>
@@ -28,9 +25,6 @@
         <button onclick="addToPanel(2)" type="submit">2</button>
         <button onclick="addToPanel(3)" type="submit">3</button>
         <button onclick="expressionType('+')" type="submit" class="aside-buttons">+</button>
-      </div>
-
-      <div class="bottom-buttons">
         <button onclick="addToPanel(0)" type="submit" id="zero">0</button>
         <button onclick="addDot()"type="submit">.</button>
         <button onclick="doExpression()" type="submit" class="aside-buttons">=</button>
@@ -53,9 +47,8 @@
           signActive = false
         }
 
-
         function addToPanel(n){
-          if(display.innerHTML.length > 9) return 
+          if(display.innerHTML.length > 11) return 
           if(signActive){
             num2 += n
             display.innerHTML = addToDisplay(num2)
@@ -101,20 +94,14 @@
           if(signActive){
             if(num2 === "") return
             num2 = (num1/100) * num2
-            // console.log(`num2 --> ${num1} - ${num2}`)
             display.innerHTML += "%"
           }else{
             num1 /= 100
-            // console.log(`num1 --> ${num1} - ${num2}`)
             display.innerHTML += "%"
           }
         }
 
         function addToDisplay(n){
-          // if(display.clientWidth > display.parentElement.clientWidth){
-          //   console.log("passei aquii")
-          //   display.style.fontSize = `${parseInt(window.getComputedStyle(display).fontSize) -10}px`   
-          // }
           return parseFloat(n).toLocaleString(undefined)
         }
     </script>
