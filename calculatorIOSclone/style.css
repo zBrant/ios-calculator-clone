@@ -63,11 +63,17 @@ button{
   color: white;
   font-size: 2rem;
   margin: .2rem;
+
+  transition: background-color .5s ease-in-out;
 }
 
 button:hover{
-  background-color: #202020;
-  color: white;
+  background-color: color-mix(in srgb, var(--primary-color), white 20%);
+}
+
+button:focus{
+  background-color: color-mix(in srgb, var(--primary-color), white 40%);
+  transition-duration: .2s;
 }
 
 .top-buttons{
@@ -75,8 +81,24 @@ button:hover{
   color: black;
 }
 
+.top-buttons:hover{
+  background-color: color-mix(in srgb, var(--primary-color-light), white 40%);
+}
+
+.top-buttons:focus{
+  background-color: color-mix(in srgb, var(--primary-color-light), white 60%);
+}
+
 .aside-buttons{
   background-color: var(--secondary-color);
+}
+
+.aside-buttons:hover{
+  background-color: color-mix(in srgb, var(--secondary-color), white 20%);
+}
+
+.aside-buttons:focus{
+  background-color: color-mix(in srgb, var(--secondary-color), white 30%);
 }
 
 #zero{
