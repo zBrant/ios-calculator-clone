@@ -6,12 +6,16 @@ let signActive = false
 
 function clearDisplay() {
   display.innerHTML = ""
+  clearVars()
+}
+
+function clearVars(){
   num1 = ""
   num2 = ""
   operator = ""
   dotPlaced = false
   signActive = false
-}
+} 
 
 function addToPanel(n) {
   if(display.innerHTML.length > 11) return 
@@ -54,6 +58,7 @@ function expressionType(t) {
 
 function doExpression() {
   display.innerHTML = eval(num1 + operator + num2).toLocaleString(undefined)
+  clearVars()
 }
 
 function toPercentage() {
